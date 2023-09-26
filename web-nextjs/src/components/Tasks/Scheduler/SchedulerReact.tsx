@@ -108,7 +108,6 @@ function SchedulerReactC({
   setDeleteTask,
   holidays,
 }: Props) {
-  const [tagsSelected, setTagSelected] = useState(tasks.concat(holidays));
 
   const handleOpenModalEdit = (event: ProcessedEvent) => {
     setEditTask(event);
@@ -149,7 +148,7 @@ function SchedulerReactC({
           </Grid>
         );
       }}
-      events={tagsSelected}
+      events={tasks.concat(holidays)}
     />
   );
 }
