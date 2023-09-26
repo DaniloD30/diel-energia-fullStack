@@ -1,5 +1,5 @@
 import { Tasks } from "@/interfaces/tasksInterface";
-import { getTasks } from "../services/tasksService";
+import { getHolidays, getTasks } from "../services/tasksService";
 import { useQuery } from "@tanstack/react-query";
 
 const useTasks = (title: string, tagsId: string[]) =>
@@ -26,4 +26,27 @@ const useTasks = (title: string, tagsId: string[]) =>
     refetchOnWindowFocus: false,
   });
 
-export { useTasks };
+const useHolidays = () =>
+  useQuery({
+    queryKey: ["getTasks"],
+    queryFn: async () => {
+      const data = await getHolidays();
+
+      return data;
+    },
+
+    select: (data) => {
+      return data.map((task, index) => {
+        return {
+          event_id: `${index}-${task.name}`,
+          title: task.name,
+          start: new Date(task.date),
+          end: new Date(task.date),
+          description: task.localName,
+          countryCode: task.countryCode
+        };
+      });
+    },
+    refetchOnWindowFocus: false,
+  });
+export { useTasks , useHolidays };

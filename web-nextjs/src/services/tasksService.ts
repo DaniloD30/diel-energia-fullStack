@@ -1,5 +1,5 @@
-import { Tasks } from "../interfaces/tasksInterface";
-import { api } from "../lib";
+import { Holidays, Tasks } from "../interfaces/tasksInterface";
+import { api, api2 } from "../lib";
 
 const haveNext = (tagsId: string[]) => {
   if (tagsId.length === 1) {
@@ -30,6 +30,12 @@ export const getTasks = async (title: string, tagsId: string[]) => {
     return data;
   }
   const { data } = await api.get<Tasks[]>(`tasks`);
+
+  return data;
+};
+
+export const getHolidays = async () => {
+  const { data } = await api2.get<Holidays[]>("");
 
   return data;
 };

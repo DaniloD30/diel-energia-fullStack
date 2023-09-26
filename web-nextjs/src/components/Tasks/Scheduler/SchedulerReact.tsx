@@ -7,6 +7,7 @@ import type {
 } from "@aldabil/react-scheduler/types";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Holidays } from "@/interfaces/tasksInterface";
 
 interface CustomEditorProps {
   scheduler: SchedulerHelpers;
@@ -96,6 +97,7 @@ interface Props {
   handleClickOpenDelete: () => void;
   setEditTask: Dispatch<SetStateAction<any>>;
   setDeleteTask: Dispatch<SetStateAction<string>>;
+  holidays: any;
 }
 
 function SchedulerReactC({
@@ -104,12 +106,9 @@ function SchedulerReactC({
   handleClickOpenDelete,
   setEditTask,
   setDeleteTask,
+  holidays,
 }: Props) {
-  const [tagsSelected, setTagSelected] = useState(tasks);
-
-  useEffect(() => {
-    setTagSelected(tasks);
-  }, [tasks]);
+  const [tagsSelected, setTagSelected] = useState(tasks.concat(holidays));
 
   const handleOpenModalEdit = (event: ProcessedEvent) => {
     setEditTask(event);
@@ -133,6 +132,7 @@ function SchedulerReactC({
               <Button
                 variant="outlined"
                 fullWidth
+                disabled={event.countryCode}
                 endIcon={<EditIcon />}
                 onClick={() => handleOpenModalEdit(event)}
               ></Button>
@@ -141,6 +141,7 @@ function SchedulerReactC({
               <Button
                 variant="outlined"
                 fullWidth
+                disabled={event.countryCode}
                 endIcon={<DeleteIcon />}
                 onClick={() => handleOpenModalDelete(event)}
               ></Button>

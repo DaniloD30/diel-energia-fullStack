@@ -3,7 +3,7 @@ import AddCircle from "@mui/icons-material/AddCircle";
 import { MultiSelect } from "./MultiSelect";
 import { ModalTask } from "./Modal";
 import { SchedulerReact } from "./Scheduler/SchedulerReact";
-import { useTasks } from "@/hooks/useTasks";
+import { useHolidays, useTasks } from "@/hooks/useTasks";
 import { useState } from "react";
 import { InputSearch } from "./InputSearch";
 import { useTags } from "../../hooks/useTags";
@@ -15,6 +15,7 @@ export const TasksContainer = () => {
   const [editTask, setEditTask] = useState<any>();
   const [idTaskDelete, setTaskDeleteId] = useState<string>("");
   const { data: tasks, isLoading } = useTasks(search, tagsSelected);
+  const { data: holidays, isLoading: holidaysLoading } = useHolidays();
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const { data: tags } = useTags();
@@ -77,6 +78,7 @@ export const TasksContainer = () => {
             handleClickOpen={handleClickOpen}
             setEditTask={setEditTask}
             setDeleteTask={setTaskDeleteId}
+            holidays={holidays}
           />
         ) : null}
       </Box>
